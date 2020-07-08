@@ -5,6 +5,7 @@ import java.math.BigInteger;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
 import lombok.AllArgsConstructor;
@@ -20,9 +21,11 @@ public class SalaUsuario {
 	@EmbeddedId
 	private SalaUsuarioId id;
 	
+	@ManyToOne
     @JoinColumn(name = "fk_usuarios_id", insertable = false, updatable = false)
 	private BigInteger usuarioId;
 	
+	@ManyToOne
     @JoinColumn(name = "fk_salas_id", insertable = false, updatable = false)
 	private BigInteger salaId;
 }

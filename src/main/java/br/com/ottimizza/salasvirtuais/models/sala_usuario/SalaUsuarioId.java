@@ -22,6 +22,6 @@ public class SalaUsuarioId implements Serializable{
 	private BigInteger usuarioId;
 	
 	@Column(name="fk_salas_id")
-	private String salaId;
+	private BigInteger salaId;
 	
 }
