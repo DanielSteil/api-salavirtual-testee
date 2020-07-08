@@ -2,6 +2,7 @@ package br.com.ottimizza.salasvirtuais.models.sala_usuario;
 
 import java.math.BigInteger;
 
+import javax.persistence.Column;
 import javax.persistence.EmbeddedId;
 import javax.persistence.Entity;
 import javax.persistence.JoinColumn;
@@ -13,19 +14,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
-@Table(name = "sala_usuario")
+@Table(name = "salas_usuario")
 @Data
-@NoArgsConstructor @AllArgsConstructor
+@NoArgsConstructor
+@AllArgsConstructor
 public class SalaUsuario {
 
 	@EmbeddedId
 	private SalaUsuarioId id;
 	
 	@ManyToOne
-    @JoinColumn(name = "fk_usuarios_id", insertable = false, updatable = false)
+    @Column(name = "fk_usuarios_id", insertable = false, updatable = false)
 	private BigInteger usuarioId;
 	
 	@ManyToOne
-    @JoinColumn(name = "fk_salas_id", insertable = false, updatable = false)
+    @Column(name = "fk_salas_id", insertable = false, updatable = false)
 	private BigInteger salaId;
 }
