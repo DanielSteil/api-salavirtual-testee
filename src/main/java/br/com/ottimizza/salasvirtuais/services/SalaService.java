@@ -49,7 +49,7 @@ public class SalaService {
 	public void salvaUsuarioSala(SalaUsuario salaUser) throws Exception {
 		try{
 			if(salaUsuarioRepository.buscaUsuarioEmSalas(salaUser.getUsuarioId()) > 0) {
-				salaUsuarioRepository.deletaSalaUsuario(salaUser.getUsuarioId());
+				salaUsuarioRepository.deleteById(salaUser.getUsuarioId());
 			}
 			salaUsuarioRepository.save(salaUser);
 		}
@@ -60,7 +60,7 @@ public class SalaService {
 	
 	public void deletaUsuarioSala(BigInteger usuarioId) throws Exception {
 		try{
-			salaUsuarioRepository.deletaSalaUsuario(usuarioId);
+			salaUsuarioRepository.deleteById(usuarioId);
 		}
 		catch(Exception ex) { }
 	}
