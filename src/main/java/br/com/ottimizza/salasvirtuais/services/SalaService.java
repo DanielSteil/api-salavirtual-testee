@@ -40,29 +40,18 @@ public class SalaService {
 	}
 	
 	public void deletaSala(BigInteger salaId) throws Exception {
-		try {
-			repository.deleteById(salaId);
-		}
-		catch(Exception ex) { }
+		repository.deleteById(salaId);
 	}
 	
 	public void salvaUsuarioSala(SalaUsuario salaUser) throws Exception {
-		try{
-			if(salaUsuarioRepository.buscaUsuarioEmSalas(salaUser.getUsuarioId()) > 0) {
-				salaUsuarioRepository.deleteById(salaUser.getUsuarioId());
-			}
-			salaUsuarioRepository.save(salaUser);
+		if(salaUsuarioRepository.buscaUsuarioEmSalas(salaUser.getUsuarioId()) > 0) {
+			salaUsuarioRepository.deletaSalaUsuario(salaUser.getUsuarioId());
 		}
-		catch(Exception ex) {
-			System.out.println(ex.getMessage());
-		}
+		salaUsuarioRepository.save(salaUser);
 	}
 	
 	public void deletaUsuarioSala(BigInteger usuarioId) throws Exception {
-		try{
-			salaUsuarioRepository.deleteById(usuarioId);
-		}
-		catch(Exception ex) { }
+		salaUsuarioRepository.deletaSalaUsuario(usuarioId);
 	}
 	
 }
