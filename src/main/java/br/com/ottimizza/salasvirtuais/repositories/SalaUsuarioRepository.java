@@ -12,10 +12,9 @@ import org.springframework.data.repository.query.Param;
 import org.springframework.stereotype.Repository;
 
 import br.com.ottimizza.salasvirtuais.models.sala_usuario.SalaUsuario;
-import br.com.ottimizza.salasvirtuais.models.sala_usuario.SalaUsuarioId;
 
 @Repository
-public interface SalaUsuarioRepository extends JpaRepository<SalaUsuario, SalaUsuarioId>{
+public interface SalaUsuarioRepository extends JpaRepository<SalaUsuario, BigInteger>{
 
 	@Query(value = "SELECT su.fk_usuarios_id FROM sala_usuario su WHERE su.fk_salas_id = :salaId", nativeQuery = true)
 	List<BigInteger> usuariosPorSala(@Param("salaId") BigInteger salaId);
@@ -30,7 +29,7 @@ public interface SalaUsuarioRepository extends JpaRepository<SalaUsuario, SalaUs
 	
 	@Modifying
 	@Transactional
-	@Query(value = "DELETE FROM sala_usuario su WHERE su.usuarioId = :usuarioId)", nativeQuery = true)
+	@Query(value = "DELETE FROM sala_usuario su WHERE su.fk_usuarios_id = :usuarioId)", nativeQuery = true)
 	void deletaSalaUsuario(@Param("usuarioId") BigInteger usuarioId);
 	
 }

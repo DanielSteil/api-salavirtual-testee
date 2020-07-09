@@ -47,10 +47,9 @@ public class SalaRepositoryImpl implements SalaRepositoryCustom {
 		query.offset(pageable.getPageSize() * pageable.getPageNumber());
 		
 		salas = query.fetch();
-		System.out.println("usuarioPorSala = " +salas.get(0).getUsuariosSala());
-		/*for(SalaDTO sala : salas) {
+		for(SalaDTO sala : salas) {
 			sala.setUsuariosSala(salaUsuarioRepository.usuariosPorSala(sala.getId()));
-		}*/
+		}
 		return new PageImpl<SalaDTO>(salas, pageable, totalElements);
 	}
 
