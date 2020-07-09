@@ -40,8 +40,8 @@ public class SalaRepositoryImpl implements SalaRepositoryCustom {
 			query.where(sala.empresaId.eq(filtro.getEmpresaId()));
 		if(filtro.getNome() != null && filtro.getNome() != "")
 			query.where(sala.nome.containsIgnoreCase(filtro.getNome()));
-		if(filtro.isPublica())
-			query.where(sala.publica.eq(filtro.isPublica()));
+		if(filtro.getPublica() != null)
+			query.where(sala.publica.eq(filtro.getPublica()));
 		
 		totalElements = query.fetchCount();
 		query.limit(pageable.getPageSize());

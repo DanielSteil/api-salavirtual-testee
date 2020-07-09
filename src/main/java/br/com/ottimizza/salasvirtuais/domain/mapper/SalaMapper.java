@@ -10,7 +10,7 @@ public class SalaMapper {
 				.id(sala.getId())
 				.empresaId(sala.getEmpresaId())
 				.nome(sala.getNome())
-				.publica(sala.isPublica())
+				.publica(sala.getPublica())
 				.build();
 	}
 	
@@ -19,7 +19,7 @@ public class SalaMapper {
 				.id(sala.getId())
 				.empresaId(sala.getEmpresaId())
 				.nome(sala.getNome())
-				.publica(sala.isPublica())
+				.publica(sala.getPublica())
 				.build();
 	}
 }

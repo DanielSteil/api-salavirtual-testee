@@ -29,52 +29,40 @@ public class SalaService {
 		return repository.save(SalaMapper.fromDto(sala));
 	}
 	
+	public SalaDTO patch(BigInteger id, SalaDTO sala) throws Exception {
+		Sala current = repository.findById(id).orElse(null);
+		current = sala.patch(current);
+		return SalaMapper.fromEntity(repository.save(current));
+	}
+	
 	public Page<SalaDTO> buscaPorFiltro(SalaDTO filtro, PageCriteria pageCriteria) throws Exception {
 		return repository.buscaPorFiltro(filtro, PageCriteria.getPageRequest(pageCriteria));
 	}
 	
-	public JSONObject deletaSala(BigInteger salaId) throws Exception {
-		JSONObject response = new JSONObject();
+	public void deletaSala(BigInteger salaId) throws Exception {
 		try {
 			repository.deleteById(salaId);
-			response.put("status", "sucess");
-            response.put("message", "Sala excluida com sucesso!");
 		}
-		catch(Exception ex) {
-			response.put("status", "Error");
-            response.put("message", "Houve um problema ao excluir!");
-            }
-		return response;
+		catch(Exception ex) { }
 	}
 	
-	public JSONObject salvaUsuarioSala(BigInteger salaId, BigInteger usuarioId) throws Exception {
-		JSONObject response = new JSONObject();
+	public void salvaUsuarioSala(SalaUsuario salaUser) throws Exception {
 		try{
-			if(salaUsuarioRepository.buscaUsuarioEmSalas(usuarioId) > 0)
-				salaUsuarioRepository.deletaSalaUsuario(usuarioId);
-			salaUsuarioRepository.salvaSalaUsuario(salaId, usuarioId);
-			response.put("status", "sucess");
-            response.put("message", "Usuario cadastrado na sala com sucesso!");
+			if(salaUsuarioRepository.buscaUsuarioEmSalas(salaUser.getUsuarioId()) > 0) {
+				salaUsuarioRepository.deletaSalaUsuario(salaUser.getUsuarioId());
+			}
+			salaUsuarioRepository.save(salaUser);
 		}
 		catch(Exception ex) {
-			response.put("status", "Error");
-            response.put("message", "Houve um problema ao cadastrar!");
+			System.out.println(ex.getMessage());
 		}
-		return response;
 	}
 	
-	public JSONObject deletaUsuarioSala(BigInteger usuarioId) throws Exception {
-		JSONObject response = new JSONObject();
+	public void deletaUsuarioSala(BigInteger usuarioId) throws Exception {
 		try{
 			salaUsuarioRepository.deletaSalaUsuario(usuarioId);
-			response.put("status", "sucess");
-            response.put("message", "Usuario retirado da sala com sucesso!");
 		}
-		catch(Exception ex) {
-			response.put("status", "Error");
-            response.put("message", "Houve um problema ao excluir!");
-		}
-		return response;
+		catch(Exception ex) { }
 	}
 	
 }

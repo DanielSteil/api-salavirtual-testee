@@ -14,14 +14,15 @@ import javax.persistence.Table;
 
 import br.com.ottimizza.salasvirtuais.models.Sala;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
 @Table(name = "salas_usuario")
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
+@NoArgsConstructor @AllArgsConstructor
+@Builder
 public class SalaUsuario {
 
 	@Id
@@ -33,7 +34,6 @@ public class SalaUsuario {
     @Column(name = "fk_usuarios_id")
 	private BigInteger usuarioId;
 	
-    @ManyToOne(targetEntity = Sala.class)
-    @JoinColumn(name = "fk_salas_id")
+    @Column(name = "fk_salas_id")
 	private BigInteger salaId;
 }

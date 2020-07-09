@@ -35,5 +35,5 @@ public class Sala {
 	private String nome;
 	
 	@Column(name = "publica")
-	private boolean publica;
+	private Boolean publica;
 }

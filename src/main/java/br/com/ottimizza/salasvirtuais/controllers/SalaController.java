@@ -8,6 +8,7 @@ import javax.validation.Valid;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -17,6 +18,8 @@ import org.springframework.web.bind.annotation.RestController;
 import br.com.ottimizza.salasvirtuais.domain.criterias.PageCriteria;
 import br.com.ottimizza.salasvirtuais.domain.dto.SalaDTO;
 import br.com.ottimizza.salasvirtuais.domain.responses.GenericPageableResponse;
+import br.com.ottimizza.salasvirtuais.domain.responses.GenericResponse;
+import br.com.ottimizza.salasvirtuais.models.sala_usuario.SalaUsuario;
 import br.com.ottimizza.salasvirtuais.services.SalaService;
 
 @RestController
@@ -37,18 +40,26 @@ public class SalaController {
 		return ResponseEntity.ok(salaService.salvaSala(sala));
 	}
 	
-	@DeleteMapping("{salaId}")
+	@PatchMapping("/{id}")
+	public ResponseEntity<?> patchSala(@PathVariable("id") BigInteger id, @RequestBody SalaDTO sala) throws Exception {
+		return ResponseEntity.ok(new GenericResponse<SalaDTO>(salaService.patch(id, sala)));
+	}
+	
+	@DeleteMapping("/{salaId}")
 	public ResponseEntity<?> deletaSala(@PathVariable("salaId") BigInteger id) throws Exception {
-		return ResponseEntity.ok(salaService.deletaSala(id));
+		salaService.deletaSala(id);
+		return ResponseEntity.ok("{}");
 	}
 	
-	@PostMapping("{salaId}/{usuarioId}")
-	public ResponseEntity<?> salvaUsuarioSala(@PathVariable("salaId") BigInteger salaId, @PathVariable("usuarioId") BigInteger usuarioId) throws Exception {
-		return ResponseEntity.ok(salaService.salvaUsuarioSala(salaId, usuarioId));
+	@PostMapping("/entrar")
+	public ResponseEntity<?> salvaUsuarioSala(@RequestBody SalaUsuario salauser) throws Exception {
+		salaService.salvaUsuarioSala(salauser);
+		return ResponseEntity.ok("{}");
 	}
 	
-	@DeleteMapping("usuario/{usuarioId}")
+	@DeleteMapping("/usuario/{usuarioId}")
 	public ResponseEntity<?> deletaUsuarioSala(@PathVariable("usuarioId") BigInteger usuarioId) throws Exception {
-		return ResponseEntity.ok(salaService.deletaUsuarioSala(usuarioId));
+		salaService.deletaUsuarioSala(usuarioId);
+		return ResponseEntity.ok("{}");
 	}
 }
