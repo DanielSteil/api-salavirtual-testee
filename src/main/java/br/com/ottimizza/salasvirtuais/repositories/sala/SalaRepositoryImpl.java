@@ -11,6 +11,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
+import com.querydsl.core.types.Projections;
 import com.querydsl.jpa.impl.JPAQuery;
 
 import br.com.ottimizza.salasvirtuais.domain.dto.SalaDTO;
@@ -45,6 +46,7 @@ public class SalaRepositoryImpl implements SalaRepositoryCustom {
 		totalElements = query.fetchCount();
 		query.limit(pageable.getPageSize());
 		query.offset(pageable.getPageSize() * pageable.getPageNumber());
+		query.select(Projections.constructor(SalaDTO.class, sala.id, sala.empresaId, sala.nome, sala.publica));
 		
 		salas = query.fetch();
 		for(SalaDTO sala : salas) {

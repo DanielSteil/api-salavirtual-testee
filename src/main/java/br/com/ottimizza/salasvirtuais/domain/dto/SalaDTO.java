@@ -22,4 +22,14 @@ public class SalaDTO {
 	private boolean publica;
 	
 	private List<BigInteger> usuariosSala;
+
+	public SalaDTO(BigInteger id, BigInteger empresaId, String nome, boolean publica) {
+		super();
+		this.id = id;
+		this.empresaId = empresaId;
+		this.nome = nome;
+		this.publica = publica;
+	}
+	
+	
 }
