@@ -25,6 +25,11 @@ public interface SalaUsuarioRepository extends JpaRepository<SalaUsuario, BigInt
 	@Modifying
     @Transactional
 	@Query(value = "DELETE FROM salas_usuario su WHERE su.fk_usuarios_id = :usuarioId", nativeQuery = true)
-	void deletaSalaUsuario(@Param("usuarioId") BigInteger id);
+	void deletaSalaUsuarioPorUsuario(@Param("usuarioId") BigInteger id);
+	
+	@Modifying
+    @Transactional
+	@Query(value = "DELETE FROM salas_usuario su WHERE su.fk_salas_id = :salaId", nativeQuery = true)
+	void deletaSalaUsuarioPorSala(@Param("salaId") BigInteger id);
 	
 }
