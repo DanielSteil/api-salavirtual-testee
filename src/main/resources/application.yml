@@ -5,9 +5,9 @@ server:
 
 spring:
   datasource:
-    url: jdbc:postgresql://ec2-18-214-119-135.compute-1.amazonaws.com:5432/d3sq26q4ekv73e
-    username: tjamaghsnopkzw
-    password: 001ed5edb0c8cdb660cfde56c6c0f70463921834083dc3b85a1d2346320b83e2
+    url: jdbc:postgresql://ec2-52-0-155-79.compute-1.amazonaws.com:5432/da100ep7kis5ef
+    username: sgjofofhetphcc
+    password: a82cc0c5d2a425fcd80db640c94514b911dac0d87c116b962db835d0330d8d0d
     driver-class-name: org.postgresql.Driver
 
   jpa:
