@@ -1,11 +1,14 @@
 package br.com.ottimizza.salasvirtuais.services;
 
 import java.math.BigInteger;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import br.com.ottimizza.salasvirtuais.domain.projections.SalaUsuarioProjection;
 import org.json.JSONObject;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
 import org.springframework.stereotype.Service;
 
 import br.com.ottimizza.salasvirtuais.domain.criterias.PageCriteria;
@@ -36,7 +39,9 @@ public class SalaService {
 	}
 	
 	public Page<SalaDTO> buscaPorFiltro(SalaDTO filtro, PageCriteria pageCriteria) throws Exception {
-		return repository.buscaPorFiltro(filtro, PageCriteria.getPageRequest(pageCriteria));
+		List<SalaUsuarioProjection> salas = repository.buscaPorFiltro(filtro, pageCriteria);
+		Long totalSalas = repository.contarPorFiltro(filtro);
+		return new PageImpl<SalaUsuarioProjection>(salas, PageCriteria.getPageRequest(pageCriteria), totalSalas).map(SalaMapper :: fromProjection);
 	}
 	
 	public void deletaSala(BigInteger salaId) throws Exception {

@@ -2,20 +2,26 @@ package br.com.ottimizza.salasvirtuais.models;
 
 import java.math.BigInteger;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.SequenceGenerator;
-import javax.persistence.Table;
+import javax.persistence.*;
 
+import br.com.ottimizza.salasvirtuais.domain.projections.SalaUsuarioProjection;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
 @Entity
+@SqlResultSetMapping(
+		name = "salaUsuarioProjection",
+		classes = @ConstructorResult(targetClass = SalaUsuarioProjection.class,
+				columns = {
+						@ColumnResult(name = "id", type = BigInteger.class),
+						@ColumnResult(name = "nome", type = String.class),
+						@ColumnResult(name = "publica", type = Boolean.class),
+						@ColumnResult(name = "empresaId", type = BigInteger.class),
+						@ColumnResult(name = "usuariosSala", type = String.class)
+				}
+		))
 @Table(name = "salas")
 @NoArgsConstructor @AllArgsConstructor
 @Data
@@ -36,4 +42,6 @@ public class Sala {
 	
 	@Column(name = "publica")
 	private Boolean publica;
+
+
 }
